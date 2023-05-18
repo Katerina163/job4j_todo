@@ -1,0 +1,40 @@
+body {
+    background-color: #ffefdb;
+}
+
+.menu {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 45px;
+    letter-spacing: -1.2px;
+    word-spacing: -1.2px;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+.menu {
+    width: 100%;
+    display: table;
+}
+
+.menu ul {
+    display: table-row;
+}
+
+.menu li {
+    display: table-cell;
+    background: #ffaa42;
+}
+
+.menu ul li:hover, .menu a:hover {
+    background: #9b4222;
+}
+
+.menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #ffefdb;
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+#mytext {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 45px;
+    letter-spacing: -1px;
+    word-spacing: -3.2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: capitalize;
+}
+
+#mytext2 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 30px;
+    letter-spacing: 0;
+    word-spacing: 0;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
