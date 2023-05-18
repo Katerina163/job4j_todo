@@ -1,6 +1,7 @@
 create table tasks (
    id serial   primary key,
-   description text,
-   created     timestamp,
-   done        boolean
+   name        text      not null,
+   description text      not null,
+   created     timestamp not null,
+   done        boolean   not null
 );
