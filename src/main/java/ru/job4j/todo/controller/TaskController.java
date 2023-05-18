@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/task")
 public class TaskController {
     private TaskService service;
 
@@ -19,25 +20,25 @@ public class TaskController {
         service = simpleTaskService;
     }
 
-    @GetMapping({"/", "/all"})
+    @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("tasks", service.findAll());
-        return "list";
+        return "/task/list";
     }
 
     @GetMapping("/new")
     public String getAllNew(Model model) {
         model.addAttribute("tasks", service.findAllNew());
-        return "list";
+        return "/task/list";
     }
 
     @GetMapping("/done")
     public String getAllDone(Model model) {
         model.addAttribute("tasks", service.findAllDone());
-        return "list";
+        return "/task/list";
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/{id}")
     public String getTaskById(@PathVariable int id, Model model) {
         Optional<TaskDTO> task = service.findById(id);
         if (task.isEmpty()) {
@@ -45,7 +46,7 @@ public class TaskController {
             return "error";
         }
         model.addAttribute("task", task.get());
-        return "task";
+        return "/task/task";
     }
 
     @GetMapping("/delete/{id}")
@@ -55,7 +56,7 @@ public class TaskController {
             model.addAttribute("message", "Не удалось удалить");
             return "error";
         }
-        return "redirect:/all";
+        return "redirect:/task/all";
     }
 
     @GetMapping("/modify/{id}")
@@ -67,7 +68,7 @@ public class TaskController {
             return "error";
         }
         model.addAttribute("task", task.get());
-        return "modify";
+        return "/task/modify";
     }
 
     @PostMapping("/modify")
@@ -83,12 +84,12 @@ public class TaskController {
             model.addAttribute("message", "Неверно заполнены поля");
             return "error";
         }
-        return "redirect:/all";
+        return "redirect:/task/all";
     }
 
     @GetMapping("/create")
     public String getAddPage(@ModelAttribute Task task) {
-        return "create";
+        return "/task/create";
     }
 
     @PostMapping("/create")
@@ -99,6 +100,6 @@ public class TaskController {
             model.addAttribute("message", "Неверно заполнены поля");
             return "error";
         }
-        return "redirect:/all";
+        return "redirect:/task/all";
     }
 }

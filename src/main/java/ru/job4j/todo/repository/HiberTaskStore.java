@@ -110,7 +110,6 @@ public class HiberTaskStore implements TaskStore {
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
-            System.out.println(task + " store");
             session.update(task);
             tr.commit();
         } catch (Exception e) {

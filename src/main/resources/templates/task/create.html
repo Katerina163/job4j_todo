@@ -14,19 +14,19 @@
             integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
             crossorigin="anonymous"></script>
     <title>Новая задача</title>
-    <link rel="stylesheet" th:href="@{static/styles/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/menu.css}">
     <link rel="stylesheet" th:href="@{/static/styles/button.css}">
 </head>
 <body>
 <nav class="menu">
     <ul>
-        <li><a href="/all">Все задания</a></li>
-        <li><a href="/new">Текущие</a></li>
-        <li><a href="/done">Выполненные</a></li>
+        <li><a href="/task/all">Все задания</a></li>
+        <li><a href="/task/new">Текущие</a></li>
+        <li><a href="/task/done">Выполненные</a></li>
     </ul>
 </nav>
 <div class="container-lg">
-    <form class="mt-3" th:action="@{/create}" method="post" enctype="multipart/form-data">
+    <form class="mt-3" th:action="@{/task/create}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label"><b>Название</b></label>
             <input type="text" class="form-control" id="name" name="name"

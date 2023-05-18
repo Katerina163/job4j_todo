@@ -11,11 +11,5 @@ public class ConfigStyles implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/static/styles/**")
                 .addResourceLocations("classpath:/static/styles/");
-        registry
-                .addResourceHandler("/task/static/styles/**")
-                .addResourceLocations("classpath:/static/styles/");
-        registry
-                .addResourceHandler("/modify/static/styles/**")
-                .addResourceLocations("classpath:/static/styles/");
     }
 }

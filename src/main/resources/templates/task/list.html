@@ -14,16 +14,16 @@
             integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
             crossorigin="anonymous"></script>
     <title>Список задач</title>
-    <link rel="stylesheet" th:href="@{static/styles/menu.css}">
-    <link rel="stylesheet" th:href="@{static/styles/table.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/table.css}">
     <link rel="stylesheet" th:href="@{/static/styles/button.css}">
 </head>
 <body>
 <nav class="menu">
     <ul>
-        <li><a href="/all">Все задания</a></li>
-        <li><a href="/new">Текущие</a></li>
-        <li><a href="/done">Выполненные</a></li>
+        <li><a href="/task/all">Все задания</a></li>
+        <li><a href="/task/new">Текущие</a></li>
+        <li><a href="/task/done">Выполненные</a></li>
     </ul>
 </nav>
 <div>
@@ -51,7 +51,7 @@
     </table>
 </div>
 <div class="container">
-<a th:href="@{/create}" class="button button--piyo">
+<a th:href="@{/task/create}" class="button button--piyo">
     <div class="button__wrapper">
         <span class="button__text">Добавить</span>
     </div>
