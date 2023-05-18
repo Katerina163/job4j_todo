@@ -1,6 +1,6 @@
 create table users (
 	id       serial    primary key,
-	name     text         not null,
-	login    text unique  not null,
-	password text         not null
+	name     varchar         not null,
+	login    varchar unique  not null,
+	password varchar         not null
 )
