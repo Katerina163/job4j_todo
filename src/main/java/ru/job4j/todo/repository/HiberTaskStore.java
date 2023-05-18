@@ -22,7 +22,7 @@ public class HiberTaskStore implements TaskStore {
         Collection<Task> result = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
-            result = session.createQuery("from Task", Task.class).list();
+            result = session.createQuery("from Task order by created", Task.class).list();
             tr.commit();
         } catch (Exception e) {
             if (tr != null) {
@@ -40,8 +40,8 @@ public class HiberTaskStore implements TaskStore {
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             result = session.createQuery("from Task where created between :fStart and :fEnd", Task.class)
-                    .setParameter("fStart", LocalDateTime.now().minusDays(1))
-                    .setParameter("fEnd", LocalDateTime.now())
+                    .setParameter("fStart", LocalDateTime.now().minusHours(12))
+                    .setParameter("fEnd", LocalDateTime.now().plusHours(12))
                     .list();
             tr.commit();
         } catch (Exception e) {
