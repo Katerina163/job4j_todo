@@ -73,9 +73,14 @@ public class TaskController {
     @PostMapping("/modify")
     public String modify(@ModelAttribute TaskDTO task, @CookieValue(value = "id") String id, Model model) {
         task.setId(Integer.parseInt(id));
-        var v = service.update(task);
-        if (!v) {
-            model.addAttribute("message", "Ой");
+        try {
+            var isUpdated = service.update(task);
+            if (!isUpdated) {
+                model.addAttribute("message", "Ой");
+                return "error";
+            }
+        } catch (NumberFormatException nfe) {
+            model.addAttribute("message", "Неверно заполнены поля");
             return "error";
         }
         return "redirect:/all";
@@ -87,8 +92,13 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String add(@ModelAttribute TaskDTO task) {
-        service.add(task);
+    public String add(@ModelAttribute TaskDTO task, Model model) {
+        try {
+            service.add(task);
+        } catch (NumberFormatException nfe) {
+            model.addAttribute("message", "Неверно заполнены поля");
+            return "error";
+        }
         return "redirect:/all";
     }
 }
