@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @EnableWebMvc
-public class ConfigStyles implements WebMvcConfigurer {
+public class StylesConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
