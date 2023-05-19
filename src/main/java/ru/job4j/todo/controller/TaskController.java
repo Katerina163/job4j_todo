@@ -76,10 +76,10 @@ public class TaskController {
         try {
             var isUpdated = service.update(task);
             if (!isUpdated) {
-                model.addAttribute("message", "Ой");
+                model.addAttribute("message", "Не удалось обновить");
                 return "error";
             }
-        } catch (NumberFormatException nfe) {
+        } catch (IllegalStateException nfe) {
             model.addAttribute("message", "Неверно заполнены поля");
             return "error";
         }
@@ -95,7 +95,7 @@ public class TaskController {
     public String add(@ModelAttribute Task task, Model model) {
         try {
             service.add(task);
-        } catch (NumberFormatException nfe) {
+        } catch (IllegalStateException nfe) {
             model.addAttribute("message", "Неверно заполнены поля");
             return "error";
         }
