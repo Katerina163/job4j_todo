@@ -54,19 +54,4 @@ public class SimpleTaskService implements TaskService {
     public Optional<Task> add(Task task) {
         return Optional.ofNullable(store.add(task));
     }
-/*
-    private Task formatDTO(TaskDTO task) {
-        Task result = new Task();
-        result.setId(task.getId());
-        result.setName(task.getName());
-        result.setDescription(task.getDescription());
-        String[] arrayStr = task.getCreated().split("[/: ]");
-        int[] arrayInt = new int[arrayStr.length];
-        for (int i = 0; i < arrayStr.length; i++) {
-            arrayInt[i] = Integer.parseInt(arrayStr[i]);
-        }
-        result.setCreated(LocalDateTime.of(arrayInt[2], arrayInt[1], arrayInt[0], arrayInt[3], arrayInt[4]));
-        result.setDone(task.isDone());
-        return result;
-    }*/
 }
