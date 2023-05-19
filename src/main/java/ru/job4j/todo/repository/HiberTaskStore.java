@@ -9,6 +9,7 @@ import ru.job4j.todo.model.Task;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 @Repository
@@ -19,7 +20,7 @@ public class HiberTaskStore implements TaskStore {
     @Override
     public Collection<Task> findAll() {
         Transaction tr = null;
-        Collection<Task> result = null;
+        Collection<Task> result = Collections.emptyList();
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             result = session.createQuery("from Task order by created", Task.class).list();
@@ -36,7 +37,7 @@ public class HiberTaskStore implements TaskStore {
     @Override
     public Collection<Task> findAllNew() {
         Transaction tr = null;
-        Collection<Task> result = null;
+        Collection<Task> result = Collections.emptyList();
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             result = session.createQuery("from Task where created between :fStart and :fEnd order by created", Task.class)
@@ -56,7 +57,7 @@ public class HiberTaskStore implements TaskStore {
     @Override
     public Collection<Task> findAllDone() {
         Transaction tr = null;
-        Collection<Task> result = null;
+        Collection<Task> result = Collections.emptyList();
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             result = session.createQuery("from Task where done = true order by created", Task.class).list();
