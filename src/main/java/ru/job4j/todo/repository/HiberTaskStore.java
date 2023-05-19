@@ -90,53 +90,62 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean deleteById(int id) {
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             Task task = new Task();
             task.setId(id);
             session.delete(task);
+            result = true;
             tr.commit();
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
+                result = false;
             }
             e.printStackTrace();
         }
-        return findById(id).isEmpty();
+        return result;
     }
 
     @Override
     public boolean update(Task task) {
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             session.update(task);
+            result = true;
             tr.commit();
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
+                result = false;
             }
             e.printStackTrace();
         }
-        return task.equals(findById(task.getId()).get());
+        return result;
     }
 
     @Override
     public boolean doneById(int id, boolean done) {
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             session.createQuery("update Task set done = :fDone where id = :fId")
                     .setParameter("fDone", done);
+            result = true;
             tr.commit();
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
+                result = false;
             }
             e.printStackTrace();
         }
-        return findById(id).get().isDone() == done;
+        return result;
     }
 
     @Override
