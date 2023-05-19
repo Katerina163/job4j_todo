@@ -46,7 +46,7 @@
               </span>
             </td>
             <td><a th:text="${task.getName()}" th:href="@{/task/{id}(id=${task.getId()})}"></a></td>
-            <td th:text="${task.getCreated()}"></td>
+            <td th:text="${#temporals.format(task.getCreated(), 'dd/MM/yyyy hh:mm')}"></td>
         </tr>
     </table>
 </div>

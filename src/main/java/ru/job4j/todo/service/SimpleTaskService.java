@@ -1,12 +1,9 @@
 package ru.job4j.todo.service;
 
 import org.springframework.stereotype.Service;
-import ru.job4j.todo.dto.TaskDTO;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.repository.TaskStore;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -19,23 +16,23 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public Collection<TaskDTO> findAll() {
-        return store.findAll().stream().map(this::format).toList();
+    public Collection<Task> findAll() {
+        return store.findAll();
     }
 
     @Override
-    public Collection<TaskDTO> findAllNew() {
-        return store.findAllNew().stream().map(this::format).toList();
+    public Collection<Task> findAllNew() {
+        return store.findAllNew();
     }
 
     @Override
-    public Collection<TaskDTO> findAllDone() {
-        return store.findAllDone().stream().map(this::format).toList();
+    public Collection<Task> findAllDone() {
+        return store.findAllDone();
     }
 
     @Override
-    public Optional<TaskDTO> findById(int id) {
-        return store.findById(id).map(this::format);
+    public Optional<Task> findById(int id) {
+        return store.findById(id);
     }
 
     @Override
@@ -44,8 +41,8 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public boolean update(TaskDTO task) {
-        return store.update(formatDTO(task));
+    public boolean update(Task task) {
+        return store.update(task);
     }
 
     @Override
@@ -54,20 +51,10 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public Optional<Task> add(TaskDTO task) {
-        return Optional.ofNullable(store.add(formatDTO(task)));
+    public Optional<Task> add(Task task) {
+        return Optional.ofNullable(store.add(task));
     }
-
-    private TaskDTO format(Task task) {
-        TaskDTO dto = new TaskDTO();
-        dto.setId(task.getId());
-        dto.setName(task.getName());
-        dto.setDescription(task.getDescription());
-        dto.setCreated(task.getCreated().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-        dto.setDone(task.isDone());
-        return dto;
-    }
-
+/*
     private Task formatDTO(TaskDTO task) {
         Task result = new Task();
         result.setId(task.getId());
@@ -81,5 +68,5 @@ public class SimpleTaskService implements TaskService {
         result.setCreated(LocalDateTime.of(arrayInt[2], arrayInt[1], arrayInt[0], arrayInt[3], arrayInt[4]));
         result.setDone(task.isDone());
         return result;
-    }
+    }*/
 }

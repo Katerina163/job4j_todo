@@ -47,7 +47,7 @@
               </span>
             </td>
             <td th:text="${task.getName()}"></td>
-            <td th:text="${task.getCreated()}"></td>
+            <td th:text="${#temporals.format(task.getCreated(), 'dd/MM/yyyy hh:mm')}"></td>
         </tr>
     </table>
 </div>
