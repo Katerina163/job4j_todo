@@ -135,7 +135,9 @@ public class HiberTaskStore implements TaskStore {
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             session.createQuery("update Task set done = :fDone where id = :fId")
-                    .setParameter("fDone", done);
+                    .setParameter("fDone", done)
+                    .setParameter("fId", id)
+                    .executeUpdate();
             result = true;
             tr.commit();
         } catch (Exception e) {

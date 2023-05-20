@@ -73,16 +73,11 @@ public class TaskController {
     @PostMapping("/modify")
     public String modify(@ModelAttribute Task task, @CookieValue(value = "id") String id, Model model) {
         task.setId(Integer.parseInt(id));
-        try {
             var isUpdated = service.update(task);
             if (!isUpdated) {
                 model.addAttribute("message", "Не удалось обновить");
                 return "error";
             }
-        } catch (IllegalStateException nfe) {
-            model.addAttribute("message", "Неверно заполнены поля");
-            return "error";
-        }
         return "redirect:/task/all";
     }
 
@@ -92,13 +87,20 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String add(@ModelAttribute Task task, Model model) {
-        try {
+    public String add(@ModelAttribute Task task) {
             service.add(task);
-        } catch (IllegalStateException nfe) {
-            model.addAttribute("message", "Неверно заполнены поля");
-            return "error";
-        }
         return "redirect:/task/all";
+    }
+
+   @GetMapping("/done/{id}")
+    public String getDo(@PathVariable String id, Model model) {
+       try {
+           Task task = service.findById(Integer.parseInt(id)).get();
+           service.doneById(task.getId(), !task.isDone());
+       } catch (IllegalStateException nfe) {
+           model.addAttribute("message", "Неверно указан номер задачи");
+           return "error";
+       }
+        return "redirect:/task/" + id;
     }
 }

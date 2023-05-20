@@ -56,7 +56,7 @@
     <div id="mytext2" th:text="${task.getDescription()}"></div>
 </div>
 <div class="container">
-    <a href="#" class="button button--piyo">
+    <a th:href="@{/task/done/{id}(id=${task.getId()})}" class="button button--piyo">
         <div class="button__wrapper">
             <span class="button__text">Выполнить</span>
         </div>
@@ -72,7 +72,6 @@
             </div>
         </div>
     </a>
-
     <a th:href="@{/task/modify/{id}(id=${task.getId()})}" class="button button--hoo">
         <div class="button__wrapper">
             <span class="button__text">Редактировать</span>
