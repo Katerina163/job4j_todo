@@ -90,20 +90,20 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean deleteById(int id) {
-        boolean result = false;
+        boolean result;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             Task task = new Task();
             task.setId(id);
             session.delete(task);
-            result = true;
             tr.commit();
+            result = true;
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                result = false;
             }
+            result = false;
             e.printStackTrace();
         }
         return result;
@@ -111,18 +111,18 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean update(Task task) {
-        boolean result = false;
+        boolean result;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             session.update(task);
-            result = true;
             tr.commit();
+            result = true;
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                result = false;
             }
+            result = false;
             e.printStackTrace();
         }
         return result;
@@ -130,7 +130,7 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean doneById(int id, boolean done) {
-        boolean result = false;
+        boolean result;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
@@ -138,13 +138,13 @@ public class HiberTaskStore implements TaskStore {
                     .setParameter("fDone", done)
                     .setParameter("fId", id)
                     .executeUpdate();
-            result = true;
             tr.commit();
+            result = true;
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                result = false;
             }
+            result = false;
             e.printStackTrace();
         }
         return result;

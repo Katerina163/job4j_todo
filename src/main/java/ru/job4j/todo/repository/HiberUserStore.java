@@ -36,18 +36,18 @@ public class HiberUserStore implements UserStore {
 
     @Override
     public boolean add(User user) {
-        boolean result = false;
+        boolean result;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             session.save(user);
-            result = true;
             tr.commit();
+            result = true;
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                result = false;
             }
+            result = false;
             e.printStackTrace();
         }
         return result;
