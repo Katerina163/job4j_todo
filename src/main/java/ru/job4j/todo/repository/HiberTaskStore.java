@@ -90,7 +90,7 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean deleteById(int id) {
-        boolean result;
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
@@ -103,7 +103,6 @@ public class HiberTaskStore implements TaskStore {
             if (tr != null) {
                 tr.rollback();
             }
-            result = false;
             e.printStackTrace();
         }
         return result;
@@ -111,7 +110,7 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean update(Task task) {
-        boolean result;
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
@@ -122,7 +121,6 @@ public class HiberTaskStore implements TaskStore {
             if (tr != null) {
                 tr.rollback();
             }
-            result = false;
             e.printStackTrace();
         }
         return result;
@@ -130,7 +128,7 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public boolean doneById(int id, boolean done) {
-        boolean result;
+        boolean result = false;
         Transaction tr = null;
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
@@ -144,7 +142,6 @@ public class HiberTaskStore implements TaskStore {
             if (tr != null) {
                 tr.rollback();
             }
-            result = false;
             e.printStackTrace();
         }
         return result;
