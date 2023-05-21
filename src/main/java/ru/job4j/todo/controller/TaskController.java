@@ -38,12 +38,13 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public String getTaskById(@PathVariable int id, Model model) {
+    public String getTaskById(@PathVariable int id, HttpServletResponse response, Model model) {
         Optional<Task> task = service.findById(id);
         if (task.isEmpty()) {
             model.addAttribute("message", "Неправильно указан номер задачи");
             return "error";
         }
+        response.addCookie(new Cookie("done", Boolean.toString(task.get().isDone())));
         model.addAttribute("task", task.get());
         return "/task/task";
     }
@@ -73,11 +74,11 @@ public class TaskController {
     @PostMapping("/modify")
     public String modify(@ModelAttribute Task task, @CookieValue(value = "id") String id, Model model) {
         task.setId(Integer.parseInt(id));
-            var isUpdated = service.update(task);
-            if (!isUpdated) {
-                model.addAttribute("message", "Не удалось обновить");
-                return "error";
-            }
+        var isUpdated = service.update(task);
+        if (!isUpdated) {
+            model.addAttribute("message", "Не удалось обновить");
+            return "error";
+        }
         return "redirect:/task/all";
     }
 
@@ -88,19 +89,13 @@ public class TaskController {
 
     @PostMapping("/create")
     public String add(@ModelAttribute Task task) {
-            service.add(task);
+        service.add(task);
         return "redirect:/task/all";
     }
 
-   @GetMapping("/done/{id}")
-    public String getDo(@PathVariable String id, Model model) {
-       try {
-           Task task = service.findById(Integer.parseInt(id)).get();
-           service.doneById(task.getId(), !task.isDone());
-       } catch (IllegalStateException nfe) {
-           model.addAttribute("message", "Неверно указан номер задачи");
-           return "error";
-       }
+    @GetMapping("/done/{id}")
+    public String getDo(@PathVariable String id, @CookieValue(value = "done") String done) {
+        service.doneById(Integer.parseInt(id), !Boolean.parseBoolean(done));
         return "redirect:/task/" + id;
     }
 }
