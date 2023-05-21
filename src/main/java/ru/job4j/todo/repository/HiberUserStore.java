@@ -15,14 +15,15 @@ public class HiberUserStore implements UserStore {
     private final SessionFactory sf;
 
     @Override
-    public Optional<User> findByLogin(String login) {
+    public Optional<User> findByLoginAndPassword(String login, String password) {
         Transaction tr = null;
         Optional<User> user = Optional.empty();
         try (Session session = sf.openSession()) {
             tr = session.beginTransaction();
             user = session.createQuery(
-                            "from User where login = :fLogin", User.class)
+                            "from User where login = :fLogin and password = :fPassword", User.class)
                     .setParameter("fLogin", login)
+                    .setParameter("fPassword", password)
                     .uniqueResultOptional();
             tr.commit();
         } catch (Exception e) {

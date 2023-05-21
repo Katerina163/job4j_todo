@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model, HttpServletRequest request) {
-        var savedUser = service.findByLogin(user.getLogin());
+        var savedUser = service.findByLoginAndPassword(user.getLogin(), user.getPassword());
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "Логин или пароль введены неверно");
             return "error";
