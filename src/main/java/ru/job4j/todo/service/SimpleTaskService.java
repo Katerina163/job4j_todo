@@ -36,18 +36,18 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public boolean deleteById(int id) {
-        return store.deleteById(id);
+    public void deleteById(int id) {
+        store.deleteById(id);
     }
 
     @Override
-    public boolean update(Task task) {
-        return store.update(task);
+    public void update(Task task) {
+        store.update(task);
     }
 
     @Override
-    public boolean doneById(int id, boolean done) {
-        return store.doneById(id, done);
+    public void doneById(int id, boolean done) {
+        store.doneById(id, done);
     }
 
     @Override

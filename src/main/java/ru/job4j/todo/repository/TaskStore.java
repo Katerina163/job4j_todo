@@ -14,11 +14,11 @@ public interface TaskStore {
 
     Optional<Task> findById(int id);
 
-    boolean deleteById(int id);
+    void deleteById(int id);
 
-    boolean update(Task task);
+    void update(Task task);
 
-    boolean doneById(int id, boolean done);
+    void doneById(int id, boolean done);
 
     Task add(Task task);
 }

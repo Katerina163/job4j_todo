@@ -47,12 +47,8 @@ public class TaskController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteById(@PathVariable int id, Model model) {
-        var isDeleted = service.deleteById(id);
-        if (!isDeleted) {
-            model.addAttribute("message", "Не удалось удалить");
-            return "error";
-        }
+    public String deleteById(@PathVariable int id) {
+        service.deleteById(id);
         return "redirect:/task/all";
     }
 
@@ -68,12 +64,8 @@ public class TaskController {
     }
 
     @PostMapping("/modify")
-    public String modify(@ModelAttribute Task task, Model model) {
-        var isUpdated = service.update(task);
-        if (!isUpdated) {
-            model.addAttribute("message", "Не удалось обновить");
-            return "error";
-        }
+    public String modify(@ModelAttribute Task task) {
+        service.update(task);
         return "redirect:/task/all";
     }
 
