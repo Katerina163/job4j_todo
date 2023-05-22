@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Controller
@@ -38,13 +36,12 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public String getTaskById(@PathVariable int id, HttpServletResponse response, Model model) {
+    public String getTaskById(@PathVariable int id, Model model) {
         Optional<Task> task = service.findById(id);
         if (task.isEmpty()) {
             model.addAttribute("message", "Неправильно указан номер задачи");
             return "error";
         }
-        response.addCookie(new Cookie("done", Boolean.toString(task.get().isDone())));
         model.addAttribute("task", task.get());
         return "/task/task";
     }
@@ -60,8 +57,7 @@ public class TaskController {
     }
 
     @GetMapping("/modify/{id}")
-    public String getModifyPage(@PathVariable int id, HttpServletResponse response, Model model) {
-        response.addCookie(new Cookie("id", Integer.toString(id)));
+    public String getModifyPage(@PathVariable int id, Model model) {
         Optional<Task> task = service.findById(id);
         if (task.isEmpty()) {
             model.addAttribute("message", "Неправильно указан номер задачи");
@@ -72,8 +68,7 @@ public class TaskController {
     }
 
     @PostMapping("/modify")
-    public String modify(@ModelAttribute Task task, @CookieValue(value = "id") String id, Model model) {
-        task.setId(Integer.parseInt(id));
+    public String modify(@ModelAttribute Task task, Model model) {
         var isUpdated = service.update(task);
         if (!isUpdated) {
             model.addAttribute("message", "Не удалось обновить");
@@ -93,9 +88,9 @@ public class TaskController {
         return "redirect:/task/all";
     }
 
-    @GetMapping("/done/{id}")
-    public String getDo(@PathVariable String id, @CookieValue(value = "done") String done) {
-        service.doneById(Integer.parseInt(id), !Boolean.parseBoolean(done));
+    @PostMapping("/done/{id}")
+    public String doneTask(@PathVariable String id, @ModelAttribute Task task) {
+        service.doneById(Integer.parseInt(id), !task.isDone());
         return "redirect:/task/" + id;
     }
 }

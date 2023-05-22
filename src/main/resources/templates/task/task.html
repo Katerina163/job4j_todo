@@ -56,7 +56,10 @@
     <div id="mytext2" th:text="${task.getDescription()}"></div>
 </div>
 <div class="container">
-    <a th:href="@{/task/done/{id}(id=${task.getId()})}" class="button button--piyo">
+    <form th:action="@{/task/done/{id}(id=${task.getId()})}" method="post" enctype="multipart/form-data" th:object="${task}">
+        <input type="hidden" name="id" th:field="*{id}">
+        <input type="hidden" name="done" th:field="*{done}">
+    <button type="submit" class="button button--piyo">
         <div class="button__wrapper">
             <span class="button__text">Выполнить</span>
         </div>
@@ -71,7 +74,9 @@
                 <div class="character__face"></div>
             </div>
         </div>
-    </a>
+    </button>
+    </form>
+
     <a th:href="@{/task/modify/{id}(id=${task.getId()})}" class="button button--hoo">
         <div class="button__wrapper">
             <span class="button__text">Редактировать</span>
