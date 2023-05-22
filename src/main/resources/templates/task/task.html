@@ -34,6 +34,7 @@
             <th>Выполнено</th>
             <th>Название</th>
             <th>Дата создания</th>
+            <th>Автор</th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +49,7 @@
             </td>
             <td th:text="${task.getName()}"></td>
             <td th:text="${#temporals.format(task.getCreated(), 'dd/MM/yyyy hh:mm')}"></td>
+            <td th:text="${task.getUser().name}"></td>
         </tr>
     </table>
 </div>
