@@ -16,13 +16,13 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public Collection<Task> findAll() {
-        return crudRepository.query("from Task order by created", Task.class);
+        return crudRepository.query("from Task t join fetch t.priority order by created", Task.class);
     }
 
     @Override
     public Collection<Task> findAllNew() {
         return crudRepository.query(
-                "from Task where created between :fStart and :fEnd order by created",
+                "from Task t join fetch t.priority where created between :fStart and :fEnd order by created",
                 Task.class, Map.of(
                         "fStart", LocalDateTime.now().minusHours(24),
                         "fEnd", LocalDateTime.now()));
@@ -31,13 +31,13 @@ public class HiberTaskStore implements TaskStore {
     @Override
     public Collection<Task> findAllDone() {
         return crudRepository.query(
-                "from Task where done = true order by created", Task.class);
+                "from Task t join fetch t.priority where done = true order by created", Task.class);
     }
 
     @Override
     public Optional<Task> findById(int id) {
         return crudRepository.optional(
-                "from Task where id = :fId", Task.class, Map.of("fId", id));
+                "from Task t join fetch t.priority where id = :fId", Task.class, Map.of("fId", id));
     }
 
     @Override

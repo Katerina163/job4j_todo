@@ -1,46 +1,35 @@
 package ru.job4j.todo.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@ToString
+@Data
 @Table(name = "tasks")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Task {
-    @Getter
-    @Setter
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Getter
-    @Setter
     private String name;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime created;
 
-    @Getter
-    @Setter
     private boolean done;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @Getter
-    @Setter
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
 }
