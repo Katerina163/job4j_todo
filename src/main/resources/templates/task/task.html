@@ -77,51 +77,48 @@
             </div>
         </div>
     </button>
+        <a th:href="@{/task/modify/{id}(id=${task.getId()})}" class="button button--hoo">
+            <div class="button__wrapper">
+                <span class="button__text">Редактировать</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+            </div>
+        </a>
+        <a th:href="@{/task/delete/{id}(id=${task.getId()})}" class="button button--pen">
+            <div class="button__wrapper">
+                <span class="button__text">Удалить</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                </div>
+            </div>
+        </a>
     </form>
-
-    <a th:href="@{/task/modify/{id}(id=${task.getId()})}" class="button button--hoo">
-        <div class="button__wrapper">
-            <span class="button__text">Редактировать</span>
-        </div>
-        <div class="characterBox">
-            <div class="character wakeup">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-                <div class="charactor__body"></div>
-            </div>
-            <div class="character wakeup">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-                <div class="charactor__body"></div>
-            </div>
-            <div class="character">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-                <div class="charactor__body"></div>
-            </div>
-        </div>
-    </a>
-
-    <a th:href="@{/task/delete/{id}(id=${task.getId()})}" class="button button--pen">
-        <div class="button__wrapper">
-            <span class="button__text">Удалить</span>
-        </div>
-        <div class="characterBox">
-            <div class="character wakeup">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-            </div>
-            <div class="character wakeup">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-            </div>
-            <div class="character">
-                <div class="character__face"></div>
-                <div class="charactor__face2"></div>
-            </div>
-        </div>
-    </a>
-
 </div>
 </body>
 </html>
