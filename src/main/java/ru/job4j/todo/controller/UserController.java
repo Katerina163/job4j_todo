@@ -42,12 +42,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model) {
-        var isAdd = service.add(user);
-        if (!isAdd) {
-            model.addAttribute("message", "Логин уже используется");
-            return "error";
-        }
+    public String register(@ModelAttribute User user) {
+        service.add(user);
         return "/user/login";
     }
 }

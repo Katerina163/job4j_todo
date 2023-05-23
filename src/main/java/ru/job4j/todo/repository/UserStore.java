@@ -9,5 +9,5 @@ public interface UserStore {
 
     Optional<User> findByLoginAndPassword(String login, String password);
 
-    boolean add(User user);
+    void add(User user);
 }

@@ -20,7 +20,7 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
-    public boolean add(User user) {
-        return store.add(user);
+    public void add(User user) {
+        store.add(user);
     }
 }
