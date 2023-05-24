@@ -36,79 +36,85 @@
                 <label for="created" class="form-label"><b>Дата</b></label>
                 <input type="datetime-local" class="form-control" id="created" name="created" th:field="*{created}">
             </div>
-        <div class="mb-3">
-            <label for="description" class="form-label"><b>Описание</b></label>
-            <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="20"
-                      placeholder="Полное описание задачи"></textarea>
-        </div>
-        <div class="form-check mb-3">
-            <input type="checkbox" name="done" class="form-check-input" id="done"
-                   th:field="*{done}">
-            <label class="form-check-label" for="done">Выполнено</label>
-        </div>
+            <div class="form-group">
+                <label for="priority"><b>Приоритет</b></label>
+                <select class="form-control" th:field="*{priority}" id="priority" name="priority">
+                    <option th:each="pr : ${priorities}" th:value="${pr}"
+                            th:text="${pr.getName()}" th:field="*{priority}" th:selected="${pr==priority}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"><b>Описание</b></label>
+                <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="20"
+                          placeholder="Полное описание задачи"></textarea>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" name="done" class="form-check-input" id="done"
+                       th:field="*{done}">
+                <label class="form-check-label" for="done"><b>Выполнено</b></label>
+            </div>
+            <div class="container">
+                <a href="/all" class="button button--pen">
+                    <div class="button__wrapper">
+                        <span class="button__text">Отмена</span>
+                    </div>
+                    <div class="characterBox">
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                        </div>
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                        </div>
+                        <div class="character">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                        </div>
+                    </div>
+                </a>
 
-        <div class="container">
-            <a href="/all" class="button button--pen">
-                <div class="button__wrapper">
-                    <span class="button__text">Отмена</span>
-                </div>
-                <div class="characterBox">
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
+                <a th:href="@{/task/delete/{id}(id=${task.getId()})}" class="button button--piyo">
+                    <div class="button__wrapper">
+                        <span class="button__text">Удалить</span>
                     </div>
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
+                    <div class="characterBox">
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                        </div>
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                        </div>
+                        <div class="character">
+                            <div class="character__face"></div>
+                        </div>
                     </div>
-                    <div class="character">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
-                    </div>
-                </div>
-            </a>
+                </a>
 
-            <a th:href="@{/task/delete/{id}(id=${task.getId()})}" class="button button--piyo">
-                <div class="button__wrapper">
-                    <span class="button__text">Удалить</span>
-                </div>
-                <div class="characterBox">
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
+                <button type="submit" class="button button--hoo">
+                    <div class="button__wrapper">
+                        <span class="button__text">Подтвердить</span>
                     </div>
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
+                    <div class="characterBox">
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                            <div class="charactor__body"></div>
+                        </div>
+                        <div class="character wakeup">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                            <div class="charactor__body"></div>
+                        </div>
+                        <div class="character">
+                            <div class="character__face"></div>
+                            <div class="charactor__face2"></div>
+                            <div class="charactor__body"></div>
+                        </div>
                     </div>
-                    <div class="character">
-                        <div class="character__face"></div>
-                    </div>
-                </div>
-            </a>
+                </button>
 
-            <button type="submit" class="button button--hoo">
-                <div class="button__wrapper">
-                    <span class="button__text">Подтвердить</span>
-                </div>
-                <div class="characterBox">
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
-                        <div class="charactor__body"></div>
-                    </div>
-                    <div class="character wakeup">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
-                        <div class="charactor__body"></div>
-                    </div>
-                    <div class="character">
-                        <div class="character__face"></div>
-                        <div class="charactor__face2"></div>
-                        <div class="charactor__body"></div>
-                    </div>
-                </div>
-            </button>
-
-        </div>
+            </div>
         </div>
     </form>
 </div>

@@ -32,20 +32,18 @@
             <input type="text" class="form-control" id="name" name="name"
                    placeholder="Краткое название" required>
         </div>
-        <div>
-            <label for="created" class="form-label"><b>Дата</b></label>
-            <input type="datetime-local" class="form-control" id="created" name="created" required>
+        <div class="form-group">
+            <label for="priority_id"><b>Приоритет</b></label>
+            <select class="form-control" id="priority_id" name="priority" required>
+                <option th:each="priority : ${priorities}" th:value="${priority}"
+                        th:text="${priority.getName()}"></option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label"><b>Описание</b></label>
             <textarea class="form-control" id="description" name="description" rows="20"
                       placeholder="Полное описание задачи"></textarea>
         </div>
-        <div class="form-check mb-3">
-            <input type="checkbox" name="done" class="form-check-input" id="done">
-            <label class="form-check-label" for="done">Выполнено</label>
-        </div>
-
         <div class="container">
             <a href="/all" class="button button--pen">
                 <div class="button__wrapper">
