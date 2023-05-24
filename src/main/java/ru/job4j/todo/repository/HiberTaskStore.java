@@ -37,7 +37,8 @@ public class HiberTaskStore implements TaskStore {
     @Override
     public Optional<Task> findById(int id) {
         return crudRepository.optional(
-                "from Task t join fetch t.priority where t.id = :fId", Task.class, Map.of("fId", id));
+                "from Task t left join fetch t.priority left join fetch t.categories where t.id = :fId",
+                Task.class, Map.of("fId", id));
     }
 
     @Override
