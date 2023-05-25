@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -35,11 +35,18 @@ public class Task {
     @JoinColumn(name = "priority_id", nullable = false)
     private Priority priority;
 
-    @ManyToMany
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = Category.class)
     @JoinTable(
             name = "categories_tasks",
             joinColumns = { @JoinColumn(name = "task_id") },
             inverseJoinColumns = { @JoinColumn(name = "category_id") }
     )
-    private List<Category> categories = new ArrayList<>();
+    private Set<Category> categories = new HashSet<>();
 }
