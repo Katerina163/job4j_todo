@@ -39,6 +39,17 @@
                         th:text="${priority.getName()}"></option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="categories_id"><b>Категории</b></label>
+            <select class="form-control" id="categories_id" name="categories.id"
+                    th:size="${categories.size()}" multiple="multiple" required>
+                <option th:each="cat : ${categories}" th:value="${cat.id}"
+                        th:text="${cat.name}">
+                </option>
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="description" class="form-label"><b>Описание</b></label>
             <textarea class="form-control" id="description" name="description" rows="20"
