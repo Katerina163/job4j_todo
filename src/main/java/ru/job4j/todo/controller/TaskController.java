@@ -31,31 +31,39 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public String getAll(Model model) {
-        model.addAttribute("tasks", taskService.findAll());
+    public String getAll(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("tasks", taskService.findAll())
+                .addAttribute("zone", ZoneId.of(user.getTimezone()));
         return "/task/list";
     }
 
     @GetMapping("/new")
-    public String getAllNew(Model model) {
-        model.addAttribute("tasks", taskService.findAllNew());
+    public String getAllNew(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("tasks", taskService.findAllNew())
+                .addAttribute("zone", ZoneId.of(user.getTimezone()));
         return "/task/list";
     }
 
     @GetMapping("/done")
-    public String getAllDone(Model model) {
-        model.addAttribute("tasks", taskService.findAllDone());
+    public String getAllDone(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("tasks", taskService.findAllDone())
+                .addAttribute("zone", ZoneId.of(user.getTimezone()));
         return "/task/list";
     }
 
     @GetMapping("/{id}")
-    public String getTaskById(@PathVariable int id, Model model) {
+    public String getTaskById(@PathVariable int id, Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
         Optional<Task> task = taskService.findById(id);
         if (task.isEmpty()) {
             model.addAttribute("message", "Неправильно указан номер задачи");
             return "error";
         }
-        model.addAttribute("task", task.get());
+        model.addAttribute("task", task.get())
+                .addAttribute("zone", ZoneId.of(user.getTimezone()));
         return "/task/task";
     }
 
@@ -79,7 +87,8 @@ public class TaskController {
     }
 
     @PostMapping("/modify")
-    public String modify(@ModelAttribute Task task, @RequestParam List<String> list, HttpServletRequest request) {
+    public String modify(@ModelAttribute Task task, @RequestParam List<String> list,
+                         HttpServletRequest request) {
         task.setUser((User) request.getSession().getAttribute("user"));
         task.setCategories(toSet(list));
         taskService.update(task);
@@ -103,7 +112,8 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String add(@ModelAttribute Task task, @RequestParam List<String> list, HttpServletRequest request) {
+    public String add(@ModelAttribute Task task, @RequestParam List<String> list,
+                      HttpServletRequest request) {
         task.setCategories(toSet(list));
         User user = (User) request.getSession().getAttribute("user");
         task.setUser(user);
