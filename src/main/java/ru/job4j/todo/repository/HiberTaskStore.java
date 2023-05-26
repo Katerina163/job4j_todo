@@ -16,22 +16,25 @@ public class HiberTaskStore implements TaskStore {
 
     @Override
     public Collection<Task> findAll() {
-        return crudRepository.query("from Task t join fetch t.priority order by created", Task.class);
+        return crudRepository.query(
+                "from Task t left join fetch t.priority left join fetch t.categories order by created",
+                Task.class);
     }
 
     @Override
     public Collection<Task> findAllNew() {
-        return crudRepository.query(
-                "from Task t join fetch t.priority where created between :fStart and :fEnd order by created",
-                Task.class, Map.of(
-                        "fStart", LocalDateTime.now().minusHours(24),
-                        "fEnd", LocalDateTime.now()));
+        String s = "from Task t left join fetch t.priority left join fetch"
+                + " t.categories where created between :fStart and :fEnd order by created";
+        return crudRepository.query(s, Task.class, Map.of(
+                "fStart", LocalDateTime.now().minusHours(24),
+                "fEnd", LocalDateTime.now()));
     }
 
     @Override
     public Collection<Task> findAllDone() {
         return crudRepository.query(
-                "from Task t join fetch t.priority where done = true order by created", Task.class);
+                "from Task t left join fetch t.priority left join fetch t.categories where done = true order by created",
+                Task.class);
     }
 
     @Override

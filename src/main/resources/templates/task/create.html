@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="categories_id"><b>Категории</b></label>
-            <select class="form-control" id="categories_id" name="categories.id"
+            <select class="form-control" id="categories_id" name="list"
                     th:size="${categories.size()}" multiple="multiple" required>
                 <option th:each="cat : ${categories}" th:value="${cat.id}"
                         th:text="${cat.name}">

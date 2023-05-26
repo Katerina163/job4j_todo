@@ -5,6 +5,7 @@ import ru.job4j.todo.model.Category;
 import ru.job4j.todo.repository.CategoryStore;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class SimpleCategoryService implements CategoryService {
@@ -17,5 +18,10 @@ public class SimpleCategoryService implements CategoryService {
     @Override
     public Collection<Category> findAll() {
         return store.findAll();
+    }
+
+    @Override
+    public Optional<Category> findById(int id) {
+        return store.findById(id);
     }
 }

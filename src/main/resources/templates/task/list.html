@@ -35,6 +35,7 @@
             <th>Дата</th>
             <th>Приоритет</th>
             <th>Автор</th>
+            <th>Категории</th>
         </tr>
         </thead>
         <tbody>
@@ -51,6 +52,11 @@
             <td th:text="${#temporals.format(task.getCreated(), 'dd/MM/yyyy hh:mm')}"></td>
             <td th:text="${task.getPriority().getName()}"></td>
             <td th:text="${task.getUser().getName()}"></td>
+            <td>
+                <th:block th:each="category: ${task.getCategories()}">
+                    <span th:text="${category.name}"></span>
+                </th:block>
+            </td>
         </tr>
     </table>
 </div>
