@@ -12,6 +12,7 @@ import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -104,9 +105,10 @@ public class TaskController {
     @PostMapping("/create")
     public String add(@ModelAttribute Task task, @RequestParam List<String> list, HttpServletRequest request) {
         task.setCategories(toSet(list));
-        task.setUser((User) request.getSession().getAttribute("user"));
+        User user = (User) request.getSession().getAttribute("user");
+        task.setUser(user);
         task.setDone(false);
-        task.setCreated(LocalDateTime.now());
+        task.setCreated(LocalDateTime.now(ZoneId.of(user.getTimezone())));
         taskService.add(task);
         return "redirect:/task/all";
     }

@@ -11,23 +11,20 @@ import javax.persistence.*;
 @ToString
 @Table(name = "users")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 public class User {
-    @Getter
-    @Setter
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Getter
-    @Setter
     private String name;
 
-    @Getter
-    @Setter
     private String login;
 
-    @Getter
-    @Setter
     private String password;
+
+    @Column(name = "user_zone")
+    private String timezone;
 }
