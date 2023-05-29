@@ -49,7 +49,7 @@
               </span>
             </td>
             <td><a th:text="${task.getName()}" th:href="@{/task/{id}(id=${task.getId()})}"></a></td>
-            <td th:text="${#temporals.format(task.getCreated().atZone(zone), 'HH:mm dd/MM/yyyy Z')}"></td>
+            <td th:text="${#temporals.format(task.getCreated().atZone(zone).withZoneSameInstant(zone), 'HH:mm dd/MM/yyyy Z')}"></td>
             <td th:text="${task.getPriority().getName()}"></td>
             <td th:text="${task.getUser().getName()}"></td>
             <td>
